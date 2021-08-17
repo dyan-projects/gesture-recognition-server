@@ -1,0 +1,11 @@
+# config files
+.env
+.prettierrc
+.vscode
+
+# node modules
+/node_modules
+
+# npm
+.npmrc
+package-lock.json
