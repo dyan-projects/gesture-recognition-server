@@ -37,7 +37,10 @@ exports.detect = async (net, input) => {
       console.log(maxConfidence);
       console.log(gesture.gestures[maxCOnfidence].name);
 
-      return gesture.gestures[maxConfidence].name;
+      return {
+        handgesture: handGesture,
+        detectedGesture: gesture.gestures[maxConfidence].name,
+      };
     }
   }
 };

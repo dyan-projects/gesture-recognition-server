@@ -9,7 +9,7 @@ router.get('/ads', (req, res) => {
   res.send({ response: 'List of ads' }).status(200);
 });
 
-router.get('/ad/id:', (req, res) => {
+router.get('/ad/:id', (req, res) => {
   res.send({ response: 'Ad by current id' }).status(200);
 });
 
