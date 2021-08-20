@@ -8,7 +8,7 @@ module.exports = ({ database, logger }) =>
     .use(
       expressWinston.logger({
         winstonInstance: logger,
-        msg: '{{res.statusCode}} {{req.mmethod}} {{req.url}} {{res.responseTime}}ms',
+        msg: '{{res.statusCode}} {{req.method}} {{req.url}} {{res.responseTime}}ms',
         meta: false,
       }),
     )
