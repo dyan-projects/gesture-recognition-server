@@ -1,7 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const expressWinston = require('express-winston');
-const router = require('./routes/create-router')();
+const router = require('./modules/rest-crud-service/routes/create-router')();
+// console.log(router);
 
 module.exports = ({ database, logger }) =>
   express()
@@ -20,9 +21,9 @@ module.exports = ({ database, logger }) =>
       req.db = database;
       return next();
     })
-    .use(express.static('./public'))
     .use('/api', router)
     .use((error, req, res, next) => {
       logger.error(error, error);
       res.status(error.status || 500).json({ error });
-    });
+    })
+    .use(express.static('./public'));
