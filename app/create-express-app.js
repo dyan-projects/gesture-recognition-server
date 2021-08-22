@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const bodyParser = require('body-parser');
 const expressWinston = require('express-winston');
 const router = require('./modules/rest-crud-service/routes/create-router')();
@@ -25,4 +26,4 @@ module.exports = ({ database, logger }) =>
       logger.error(error, error);
       res.status(error.status || 500).json({ error });
     })
-    .use(express.static('./public'));
+    .use('/static', express.static(path.join(__dirname, 'public')));

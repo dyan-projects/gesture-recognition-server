@@ -5,7 +5,7 @@
 
 # directories
 /node_modules
-/data/*
+/data/db/*
 /logs
 
 # npm

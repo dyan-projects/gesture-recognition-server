@@ -1,22 +1,5 @@
 const Router = require('express').Router;
-
-const sanitiseQueries = queries =>
-  Object.entries(queries)
-    .map(([key, value]) => [key, isNaN(parseInt(value)) ? 0 : parseInt(value)])
-    .reduce((queries, query) => {
-      return {
-        ...queries,
-        [query[0]]: query[1],
-      };
-    }, {});
-
-const checkMissingParams = queries => {
-  let page = queries.page;
-  let max = queries.max;
-  if (typeof queries.page === 'undefined') page = 1;
-  if (typeof queries.max === '') max = 0;
-  return { page, max };
-};
+const { checkMissingParams, sanitiseQueries } = require('../../../../utils/routing-utils');
 
 module.exports = Router({ mergeParams: true }).get('/v1/adverts', (req, res, next) => {
   let limit = null;

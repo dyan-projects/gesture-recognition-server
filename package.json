@@ -11,7 +11,7 @@
   "author": "DT, MDJ",
   "license": "ISC",
   "dependencies": {
-    "@tensorflow-models/handpose": "0.0.7",
+    "@tensorflow-models/handpose": "^0.0.7",
     "@tensorflow/tfjs": "^3.8.0",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
