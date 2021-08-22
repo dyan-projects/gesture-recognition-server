@@ -3,10 +3,10 @@ const glob = require('glob');
 const path = require('path');
 const mapRelations = require('./relations/create-relations');
 
-// user and password not needed for sqlite3
+// user and password not needed for sqlite
 const USER = process.env.USER;
 const PASSWORD = process.env.PASSWORD;
-const DB_PATH = process.env.SQLITE_OPTION || './data/db/db.sqlite';
+const DB_PATH = process.env.SQLITE_STORAGE_OPTION || './data/db/db.sqlite';
 
 module.exports = ({ logger }) => {
   const sequelize = new Sequelize('database', USER, PASSWORD, {
@@ -45,6 +45,5 @@ module.exports = ({ logger }) => {
     logger.error('Unable to connect to the database: ', err);
   }
 
-  // console.log(db);
   return db;
 };

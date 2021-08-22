@@ -2,7 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const expressWinston = require('express-winston');
 const router = require('./modules/rest-crud-service/routes/create-router')();
-// console.log(router);
 
 module.exports = ({ database, logger }) =>
   express()

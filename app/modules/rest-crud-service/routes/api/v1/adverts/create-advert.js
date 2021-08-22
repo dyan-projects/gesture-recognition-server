@@ -1,6 +1,6 @@
 const Router = require('express').Router;
 
-module.exports = Router({ mergeParams: true }).post('/ads', (req, res, next) => {
+module.exports = Router({ mergeParams: true }).post('/v1/adverts', (req, res, next) => {
   try {
     req.db.company
       .findOrCreate({
@@ -10,11 +10,10 @@ module.exports = Router({ mergeParams: true }).post('/ads', (req, res, next) => 
         const advert = req.body;
         advert.companyId = company.id;
         req.db.advert.create(advert).then(advert => {
-          res.json(advert).status(201);
+          res.status(201).json(advert);
         });
       });
   } catch (err) {
     next(err);
   }
-  console.log(req.body.company);
 });
