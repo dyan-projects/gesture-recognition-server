@@ -1,8 +1,10 @@
+const cors = require('cors');
 const express = require('express');
 const path = require('path');
-const bodyParser = require('body-parser');
 const expressWinston = require('express-winston');
 const router = require('./modules/rest-crud-service/routes/create-router')();
+
+const origin = process.env.CORS_ORIGIN || '*';
 
 module.exports = ({ database, logger }) =>
   express()
@@ -13,8 +15,9 @@ module.exports = ({ database, logger }) =>
         meta: false,
       }),
     )
-    .use(bodyParser.urlencoded({ extended: true }))
-    .use(bodyParser.json())
+    .use(cors({ origin: origin }))
+    .use(express.urlencoded({ extended: true }))
+    .use(express.json())
     .use((req, res, next) => {
       req.base = `${req.protocol}://${req.get('host')}`;
       req.logger = logger;

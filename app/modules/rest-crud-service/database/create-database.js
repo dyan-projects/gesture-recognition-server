@@ -1,4 +1,5 @@
 const { Sequelize } = require('sequelize');
+const WinstonTransportSequelize = require('winston-transport-sequelize');
 const glob = require('glob');
 const path = require('path');
 const mapRelations = require('./relations/create-relations');
@@ -12,11 +13,20 @@ module.exports = ({ logger }) => {
   const sequelize = new Sequelize('database', USER, PASSWORD, {
     dialect: 'sqlite',
     storage: DB_PATH,
-    logging: logger.debug.bind(logger),
     define: {
       freezeTableName: true,
     },
   });
+
+  // winston-transport-sequelize options
+  const options = {
+    sequelize: sequelize,
+    tableName: 'log',
+    fields: { meta: Sequelize.JSONB },
+    modelOptions: { timestamps: false },
+  };
+
+  logger.add(new WinstonTransportSequelize(options));
 
   const db = mapRelations(
     glob

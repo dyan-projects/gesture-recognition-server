@@ -1,3 +1,5 @@
+const { startHandpose, detect } = require('./app/modules/gesture-recognition/gesture-recognition');
+
 const socket = (io, logger) => {
   io.on('connection', async socket => {
     const id = socket.handshake.query.id;
@@ -6,7 +8,7 @@ const socket = (io, logger) => {
       console.log(data);
     });
     logger.info(`Connected to client: ${id}`);
-    net = await handpose.startHandpose();
+    net = await startHandpose();
     if (net !== null) {
       logger.info('Handpose model loaded');
       socket.emit('start-transmission');
@@ -15,10 +17,10 @@ const socket = (io, logger) => {
       socket.on('process-input', async input => {
         logger.info('detecting');
         logger.info(input);
-        let handGesture = await handpose.detect(net, input);
-        logger.info(handGesture);
-        if (handGesture !== null) {
-          socket.emit('handGesture', { handGesture: handGesture });
+        let results = await detect(net, input);
+        logger.info(results);
+        if (results !== null) {
+          socket.emit('handGesture', results);
         }
       });
     }

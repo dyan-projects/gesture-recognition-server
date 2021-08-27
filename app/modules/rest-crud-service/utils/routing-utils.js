@@ -9,10 +9,8 @@ const sanitiseQueries = queries =>
     }, {});
 
 const checkMissingParams = queries => {
-  let page = queries.page;
-  let max = queries.max;
-  if (typeof queries.page === 'undefined') page = 1;
-  if (typeof queries.max === '') max = 0;
+  const page = typeof queries.page === 'undefined' ? 1 : queries.page;
+  const max = typeof queries.max === 'undefined' ? null : queries.max;
   return { page, max };
 };
 

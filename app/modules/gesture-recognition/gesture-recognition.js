@@ -3,22 +3,16 @@ require('@tensorflow/tfjs-backend-cpu');
 
 const models = require('./models/estimators');
 
-exports.startHandpose = async () => {
+const startHandpose = async () => {
   const net = await handpose.load();
   return net;
 };
 
-exports.detect = async (net, input) => {
-  // check if data is available - not really doing anything useful at the moment
-  if (input === null) {
-    console.log('Image or video feed not found!');
-    return null;
-  }
+const detect = async (net, input) => {
   // Make detections
-  const handGesture = await net.estimateHands(input);
-  console.log(handGesture);
+  const predictions = await net.estimateHands(input);
 
-  if (handGesture.length < 1) {
+  if (predictions.length < 1) {
     return null;
   }
   const GE = new models.GestureEstimator([
@@ -30,18 +24,16 @@ exports.detect = async (net, input) => {
     models.Gestures.OpenPalmGesture,
     models.Gestures.ClosedFistGesture,
   ]);
-  const gesture = GE.estimate(hand[0].landmarks, 4);
+  const gesture = GE.estimate(predictions[0].landmarks, 4);
   if (gesture.gestures !== undefined && gesture.gestures.length > 0) {
-    console.log(gesture.gestures);
     const confidence = gesture.gestures.map(prediction => prediction.confidence);
     const maxConfidence = confidence.indexOf(Math.max(confidence));
-    console.log(confidence);
-    console.log(maxConfidence);
-    console.log(gesture.gestures[maxConfidence].name);
 
     return {
-      handgesture: handGesture,
+      predictions: predictions,
       detectedGesture: gesture.gestures[maxConfidence].name,
     };
   }
 };
+
+module.exports = { startHandpose, detect };

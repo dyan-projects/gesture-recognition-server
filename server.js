@@ -1,10 +1,11 @@
 require('dotenv').config();
-const port = process.env.PORT || 4000;
 
 const logger = require('./logger');
 const database = require('./app/modules/rest-crud-service/database/create-database')({ logger });
 const app = require('./app/create-express-app')({ logger, database });
 const server = require('http').createServer();
+
+const port = process.env.PORT || 4000;
 
 server
   .on('request', app)
