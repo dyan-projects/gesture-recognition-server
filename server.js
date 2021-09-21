@@ -6,6 +6,7 @@ const app = require('./app/create-express-app')({ logger, database });
 const server = require('http').createServer();
 
 const port = process.env.PORT || 4000;
+const origin = process.env.CORS_ORIGIN || '*';
 
 server
   .on('request', app)
@@ -31,7 +32,9 @@ server
   })
   .listen(port);
 
-const io = require('socket.io')(server);
+const io = require('socket.io')(server, {
+  cors: { origin: origin },
+});
 require('./socket')(io, logger);
 
 process.on('SIGINT', () => {

@@ -1,5 +1,5 @@
 const handpose = require('@tensorflow-models/handpose');
-require('@tensorflow/tfjs-backend-cpu');
+require('@tensorflow/tfjs-node');
 
 const models = require('./models/estimators');
 
@@ -9,6 +9,7 @@ const startHandpose = async () => {
 };
 
 const detect = async (net, input) => {
+  if (!input || typeof input === 'string') return null;
   // Make detections
   const predictions = await net.estimateHands(input);
 

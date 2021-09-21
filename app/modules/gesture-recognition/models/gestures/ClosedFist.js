@@ -2,7 +2,7 @@ const { Finger, FingerCurl, FingerDirection } = require('../estimators/FingerDes
 const GestureDescription = require('../estimators/GestureDescription');
 
 // describe closed fist gesture ✊
-const closedFistDescription = new GestureDescription('close_fist');
+const closedFistDescription = new GestureDescription('closed_fist');
 
 // thumb
 // - curled

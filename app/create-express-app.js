@@ -8,6 +8,7 @@ const origin = process.env.CORS_ORIGIN || '*';
 
 module.exports = ({ database, logger }) =>
   express()
+    .use(require('express-status-monitor')())
     .use(
       expressWinston.logger({
         winstonInstance: logger,
