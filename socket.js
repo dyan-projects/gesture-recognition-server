@@ -13,7 +13,7 @@ module.exports = (io, logger) => {
 
       socket.on('process-input', async input => {
         logger.info('detecting');
-        logger.info(typeof input);
+        logger.info(input);
         let results = await detect(net, input);
         logger.info(results);
         if (results !== null) {

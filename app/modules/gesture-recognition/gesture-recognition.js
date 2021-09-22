@@ -9,7 +9,7 @@ const startHandpose = async () => {
 };
 
 const detect = async (net, input) => {
-  if (!input || typeof input === 'string') return null;
+  if (!input) return null;
   // Make detections
   const predictions = await net.estimateHands(input);
 
